@@ -1,0 +1,13 @@
+<div class="topSpacer">
+    <div *ngIf="!registerMode">
+        <h1 class="mat-display-3 centered">Find your match</h1>
+        <h3 class="subheading-2 centered">Come on in to view your matches... all you need to do is sign up!</h3>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+            <div><button (click)="registerToggle()" mat-raised-button color="primary">Register</button></div>
+            <div><button mat-raised-button>Learn more</button></div>
+        </div>
+    </div>
+    <div  *ngIf="registerMode">
+        <app-register [usersFromHomeComponent]="users" (cancelRegister)="cancelRegisterMode($event)" ></app-register>
+    </div>
+</div>

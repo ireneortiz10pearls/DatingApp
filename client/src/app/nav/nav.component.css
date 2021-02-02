@@ -1,0 +1,12 @@
+.site-spacer {
+  flex: 1 1 auto;
+}
+
+.login-form-field {
+  width: 100px;
+  font-size: small;
+}
+
+td {
+  padding-right: 8px;
+}

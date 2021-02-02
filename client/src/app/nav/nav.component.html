@@ -1,0 +1,44 @@
+<div>
+    <!-- #docregion toolbar-simple -->
+    <mat-toolbar [class.mat-elevation-z2]=true color="primary">
+        <span>The Dating App</span>
+        <div *ngIf="accountService.currentUser$|async">
+            <button mat-flat-button color="primary">Matches</button>
+            <button mat-flat-button color="primary">Lists</button>
+            <button mat-flat-button color="primary">Messages</button>
+        </div>
+        <span class="site-spacer"></span>
+        <div *ngIf="accountService.currentUser$|async">
+            <button mat-button [matMenuTriggerFor]=" menu">Welcome user<mat-icon>arrow_drop_down</mat-icon></button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item>Edit profile</button>
+                <mat-divider></mat-divider>
+                <button (click)="logout()" mat-menu-item>Logout</button>
+            </mat-menu>
+        </div>
+        <form *ngIf="(accountService.currentUser$|async) === null" #loginForm="ngForm" (ngSubmit)="login()"
+            autocomplete="off">
+            <table cellspacing="0">
+                <tr>
+                    <td>
+                        <mat-form-field class="login-form-field">
+                            <mat-label>Username</mat-label>
+                            <input matInput name="username" [(ngModel)]="model.username">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field class="login-form-field">
+                            <mat-label>Password</mat-label>
+                            <input type="password" matInput name="password" [(ngModel)]="model.password">
+                        </mat-form-field>
+                    </td>
+
+                    <td>
+                        <button type="submit" mat-stroked-button color="link">Login</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </mat-toolbar>
+    <!-- #enddocregion toolbar-simple -->
+</div>
