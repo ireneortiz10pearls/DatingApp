@@ -1,15 +1,18 @@
 <div>
     <!-- #docregion toolbar-simple -->
     <mat-toolbar [class.mat-elevation-z2]=true color="primary">
-        <span>The Dating App</span>
-        <div *ngIf="accountService.currentUser$|async">
-            <button mat-flat-button color="primary">Matches</button>
-            <button mat-flat-button color="primary">Lists</button>
-            <button mat-flat-button color="primary">Messages</button>
+        <a class="brandText" mat-flat-button routerLink='/' color="primary">The Dating App</a>
+        <div >
+            <ng-container *ngIf="accountService.currentUser$|async">
+                <button class="active" routerLink='/members' mat-flat-button color="primary"
+                    routerLinkActive="mat-accent">Matches</button>
+                <button routerLink='/lists' mat-flat-button color="primary" routerLinkActive="mat-accent">Lists</button>
+                <button routerLink='/messages' mat-flat-button color="primary" routerLinkActive="mat-accent">Messages</button>
+            </ng-container>
         </div>
         <span class="site-spacer"></span>
-        <div *ngIf="accountService.currentUser$|async">
-            <button mat-button [matMenuTriggerFor]=" menu">Welcome user<mat-icon>arrow_drop_down</mat-icon></button>
+        <div *ngIf="(accountService.currentUser$ | async) as user">
+            <button mat-button [matMenuTriggerFor]=" menu">Welcome {{user.userName | titlecase}}<mat-icon>arrow_drop_down</mat-icon></button>
             <mat-menu #menu="matMenu">
                 <button mat-menu-item>Edit profile</button>
                 <mat-divider></mat-divider>
@@ -23,13 +26,17 @@
                     <td>
                         <mat-form-field class="login-form-field">
                             <mat-label>Username</mat-label>
-                            <input matInput name="username" [(ngModel)]="model.username">
+                            <input matInput name="userName" [(ngModel)]="model.userName">
                         </mat-form-field>
                     </td>
                     <td>
                         <mat-form-field class="login-form-field">
                             <mat-label>Password</mat-label>
-                            <input type="password" matInput name="password" [(ngModel)]="model.password">
+                            <input matInput [type]="hide ? 'password' : 'text'" matInput name="password" [(ngModel)]="model.password">
+                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                                [attr.aria-pressed]="hide">
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
                         </mat-form-field>
                     </td>
 
